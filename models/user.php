@@ -18,7 +18,7 @@
           $this->username = mysqli_real_escape_string($mysqli, $username); //escape post data to protect against sql injections
       }
 
-      private function dbPopulate() { //for getting users
+      public function dbPopulate() { //for getting users
         //populates the current object with all data from the database
         $mysqli=$this->dbController->connect();
         $query = "SELECT user_id,password,loginattempts,icon_url,homepage_url,admin FROM users WHERE username=?;";
