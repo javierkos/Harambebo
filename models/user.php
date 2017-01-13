@@ -15,12 +15,12 @@
           require_once(__DIR__.'/../controllers/dbController.php');
           $this->dbController = new DBController();
           $mysqli = $this->dbController->connect();
-          if(gettype($param)==string) {
+          if(is_string($param)) {
             $this->username = mysqli_real_escape_string($mysqli, $param); //escape post data to protect against sql injections
-          } elseif(gettype($param)==int) {
+          } elseif(is_numeric($param)) {
             $this->user_id = mysqli_real_escape_string($mysqli, $param); //escape post data to protect against sql injections
           }
-
+          error_log('new user object constructed '.$param);
       }
 
       public function dbPopulate() { //for getting users
@@ -62,7 +62,7 @@
               $this->dbController->disconnect();
           }
         }
-
+        error_log('populating user details '.$this->username.$this->password);
       }
 
       public function manualPopulate($password,$icon,$homepage) { //for creating users
@@ -71,7 +71,7 @@
           'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
         ];
 
-        $this->password = password_hash($pass, PASSWORD_BCRYPT, $options); //Hash the password with a salt before storing it.
+        $this->password = password_hash($password, PASSWORD_BCRYPT, $options); //Hash the password with a salt before storing it.
         $this->icon=$icon;
         $this->homepage=$homepage;
       }
@@ -89,6 +89,7 @@
 
       public function incrementLogins() {
         //increment incorrect logins for this user on the database
+        error_log('incrementing incorrect logins for '.$this->username);
         $this->loginattempts+=1;
         $query= 'UPDATE users SET loginattempts=? WHERE user_id=?;';
         $mysqli=$this->dbController->connect();
@@ -106,6 +107,7 @@
             $stmt->bind_param('ssss',$this->username, $this->password,$this->icon,$this->homepage);
             $stmt->execute();
         }
+        $this->user_id = $mysqli->insert_id;
         $this->dbController->disconnect();
       }
 

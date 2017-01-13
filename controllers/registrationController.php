@@ -1,11 +1,6 @@
 <?php
 require_once(__DIR__.'/../models/user.php');
-require_once 'Microsoft/WindowsAzure/Storage/Table.php';
-require_once 'Microsoft/WindowsAzure/SessionHandler.php';
 session_start();
-if (!is_writable(session_save_path())) {
-    die('Session path "'.session_save_path().'" is not writable for PHP!');
-}
 
 /*** check the username is the correct length ***/
 if (strlen( $_POST['username']) > 20 || strlen($_POST['username']) < 4) {
@@ -30,7 +25,7 @@ else {
   $user = new User($_POST['username']);
   $user->manualPopulate($_POST['password'],$_POST['icon'],$_POST['hp']);
   $user->insert();
-  $_SESSION['user_id']=$mysqli->insert_id;
+  $_SESSION['user_id']=$user->user_id;
   header("Location: ../home.php");
 
 }

@@ -28,13 +28,14 @@ elseif (ctype_alnum($_POST['password']) != true){
 }
 else
 {
-    /*** if we are here the data is valid and we can insert it into database ***/
+    // call the model and create a user object
     $user = new User($_POST['username']);
     $user->dbPopulate(); //populate the user object from database
     $password = $_POST['password'];
 
+
     if($user->loginattempts > 3) {
-        die("Your account has been locked out, further password requests will not be checked. Email 'helpdesk@harambebo.com' to reset your password.");
+      die("Your account has been locked out, further password requests will not be checked. Email 'helpdesk@harambebo.com' to reset your password.");
     } else {
       if ($user->authenticateUser($_POST['password'])) {
         $_SESSION['user_id']=$user->user_id;
