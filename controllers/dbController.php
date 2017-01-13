@@ -3,9 +3,9 @@ class DBController{
 
   public $link;
 
-  private static $user='administrator';
-  private static $password='password';
-  private static $db='Harambebo';
+  private static $user='';
+  private static $password='';
+  private static $db='localdb';
   private static $host='localhost';
 
   public function connect(){
