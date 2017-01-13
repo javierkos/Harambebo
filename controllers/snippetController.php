@@ -30,12 +30,12 @@
 
           while ($stmt->fetch()) {
             echo '<div class="blog-post"><h1 class="blog-title">';
-            echo ($title);
+            echo htmlspecialchars($title);
             echo '</h1><h2 class="date">';
-            echo ($date);
+            echo htmlspecialchars($date);
             echo '</h2><p class="blog-content">';
-            echo ($text);
-            if($admin=='1' || null==$display_id) {echo '<button id="del',$itemid,'" style="float:right;">Delete</button>';}
+            echo htmlspecialchars($text);
+            if($admin=='1' || null==$display_id) {echo '<button id="del'.htmlspecialchars($itemid).'" style="float:right;">Delete</button>';}
             echo '</p></div>';
           }
       }

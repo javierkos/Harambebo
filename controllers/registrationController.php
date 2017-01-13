@@ -52,7 +52,7 @@ else
   if($stmt = $mysqli->prepare($query) or die('Query not satisfactory')){
 
       $stmt->bind_param('ssss',$username, $hashpass,$icon,$hp);
-
+      
       /* Execute query */
       $stmt->execute();
       $_SESSION['user_id']=$mysqli->insert_id;

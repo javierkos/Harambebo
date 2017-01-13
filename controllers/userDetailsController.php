@@ -13,13 +13,13 @@
       while ($stmt->fetch()) {
         echo '<form id="login" style="text-align: center;border:none" action="controllers/editController.php" method="post" >
         <label ><b>Username:</b></label>
-        <input id="user" type="text" placeholder="Insert Username" name="username" maxlength="20" required value="'.$username.'">
+        <input id="user" type="text" placeholder="Insert Username" name="username" maxlength="20" required value="'.htmlspecialchars($username).'">
         <label><b>New Password:</b></label>
         <input id="pass" type="password" placeholder="Insert Password" name="password" maxlength="20" required>
         <label ><b>Icon URL:</b></label>
-        <input id="user" type="text" placeholder="Insert URL" name="icon" value="'.$icon.'">
+        <input id="user" type="text" placeholder="Insert URL" name="icon" value="'.htmlspecialchars($icon).'">
         <label ><b>Homepage URL:</b></label>
-        <input id="user" type="text" placeholder="Insert URL" name="hp" value="'.$hp.'">
+        <input id="user" type="text" placeholder="Insert URL" name="hp" value="'.htmlspecialchars($hp).'">
         <button type="submit" id="log">Save Changes</button>
       </form>';
       }

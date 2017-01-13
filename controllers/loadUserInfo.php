@@ -13,15 +13,14 @@
 
   $mysqli=$dbController->connect();
   $query = 'SELECT username,icon_url,homepage_url FROM users WHERE user_id=?;';
-  if($stmt = $mysqli->prepare($query) or die('Query not satisfactory')){
-      error_log('prepared query');
+  if($stmt = $mysqli->prepare($query) or die($mysqli->error)){
       $stmt->bind_param('i',$user_id);
       $stmt->bind_result($username,$icon,$homepage);
       while($stmt->fetch()){
-        echo '<img src="'.$icon.'">';
+        echo '<img src="'.htmlspecialchars($icon).'">';
         echo '<p class="side-content">';
-        echo $username;
-        echo '<a style="display:block;color:blue;" href="'.$homepage.'">Homepage';
+        echo htmlspecialchars($username);
+        echo '<a style="display:block;color:blue;" href="'.htmlspecialchars($homepage).'">Homepage';
         if (strlen($homepage)>30){
           echo '...';
         }
