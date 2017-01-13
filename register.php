@@ -14,7 +14,7 @@
 		  <h1 class="logo">Harambebo</h1>
 	</header>
   <div class="imgcontainer">
-    <img src="img/logo.png" alt="Avatar" class="avatar">
+    <img width="96px" height="96px" src="img/logo.png" alt="Avatar" class="avatar">
   </div>
   <form id="login" style="text-align: center;border:none" action="controllers/registrationController.php" method="post" >
     <label ><b>User*:</b></label>
