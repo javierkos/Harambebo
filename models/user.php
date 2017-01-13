@@ -11,38 +11,58 @@
       public $user_id;
       private $dbController;
 
-      public function __construct($username) {
+      public function __construct($param) {
           require_once(__DIR__.'/../controllers/dbController.php');
           $this->dbController = new DBController();
           $mysqli = $this->dbController->connect();
-          $this->username = mysqli_real_escape_string($mysqli, $username); //escape post data to protect against sql injections
+          if(gettype($param)==string) {
+            $this->username = mysqli_real_escape_string($mysqli, $param); //escape post data to protect against sql injections
+          } elseif(gettype($param)==int) {
+            $this->user_id = mysqli_real_escape_string($mysqli, $param); //escape post data to protect against sql injections
+          }
+
       }
 
       public function dbPopulate() { //for getting users
-        //populates the current object with all data from the database
+        //populates the current object with all data from the database, depending on whether username or userid are defined
         $mysqli=$this->dbController->connect();
-        $query = "SELECT user_id,password,loginattempts,icon_url,homepage_url,admin FROM users WHERE username=?;";
+        if(NULL !== $this->username) { //username defined therefore get from db by username
+          $query = "SELECT user_id,password,loginattempts,icon_url,homepage_url,admin FROM users WHERE username=?;";
+          if($stmt = $mysqli->prepare($query) or die($mysqli->error)){
+              $stmt->bind_param('s',$this->username);
+              $stmt->execute();
+              $stmt->bind_result($user_id,$hashpass,$loginattempts,$icon,$homepage,$admin);
+              while ($stmt->fetch()) {
+                $this->user_id=$user_id;
+                $this->password=$hashpass;
+                $this->loginattempts=$loginattempts;
+                $this->icon=$icon;
+                $this->homepage=$homepage;
+                $this->admin=$admin;
+              }
+              $this->dbController->disconnect();
+          }
+        } else { //username not defined, therefore get from db by user_id
+          $query = "SELECT username,password,loginattempts,icon_url,homepage_url,admin FROM users WHERE user_id=?;";
+          if($stmt = $mysqli->prepare($query) or die($mysqli->error)){
+              $stmt->bind_param('s',$this->user_id);
+              /* Execute query */
+              $stmt->execute();
 
-        if($stmt = $mysqli->prepare($query) or die($mysqli->error)){
-            $stmt->bind_param('s',$this->username);
-
-            /* Execute query */
-            $stmt->execute();
-
-            /* Get the result */
-            $stmt->bind_result($user_id,$hashpass,$loginattempts,$icon,$homepage,$admin);
-            while ($stmt->fetch()) {
-              $this->user_id=$user_id;
-              $this->password=$hashpass;
-              $this->loginattempts=$loginattempts;
-              $this->icon=$icon;
-              $this->homepage=$homepage;
-              $this->admin=$admin;
-            }
-
-            error_log($this->password,0);
-            $this->dbController->disconnect();
+              /* Get the result */
+              $stmt->bind_result($username,$hashpass,$loginattempts,$icon,$homepage,$admin);
+              while ($stmt->fetch()) {
+                $this->username=$username;
+                $this->password=$hashpass;
+                $this->loginattempts=$loginattempts;
+                $this->icon=$icon;
+                $this->homepage=$homepage;
+                $this->admin=$admin;
+              }
+              $this->dbController->disconnect();
+          }
         }
+
       }
 
       public function manualPopulate($password,$icon,$homepage) { //for creating users
