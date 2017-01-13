@@ -10,19 +10,18 @@
     $user_id = $_SESSION['user_id'];
     $own=true;
   }
-  
+
   $mysqli=$dbController->connect();
   $query = 'SELECT username,icon_url,homepage_url FROM users WHERE user_id=?;';
   if($stmt = $mysqli->prepare($query) or die('Query not satisfactory')){
       error_log('prepared query');
       $stmt->bind_param('i',$user_id);
-      $stmt->bind_result($usename,$icon,$homepage);
+      $stmt->bind_result($username,$icon,$homepage);
       while($stmt->fetch()){
-        $small=substr($hp, 0, 30);
         echo '<img src="'.$icon.'">';
         echo '<p class="side-content">';
         echo $username;
-        echo '<a style="display:block;color:blue;" href="'.$homepage.'">'.$small.'';
+        echo '<a style="display:block;color:blue;" href="'.$homepage.'">Homepage';
         if (strlen($homepage)>30){
           echo '...';
         }
