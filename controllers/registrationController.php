@@ -1,6 +1,11 @@
 <?php
 require_once(__DIR__.'/../models/user.php');
+require_once 'Microsoft/WindowsAzure/Storage/Table.php';
+require_once 'Microsoft/WindowsAzure/SessionHandler.php';
 session_start();
+if (!is_writable(session_save_path())) {
+    die('Session path "'.session_save_path().'" is not writable for PHP!');
+}
 
 /*** check the username is the correct length ***/
 if (strlen( $_POST['username']) > 20 || strlen($_POST['username']) < 4) {

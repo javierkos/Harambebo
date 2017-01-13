@@ -33,9 +33,8 @@ else
     $user->dbPopulate(); //populate the user object from database
     $password = $_POST['password'];
 
-
     if($user->loginattempts > 3) {
-      die("Your account has been locked out, further password requests will not be checked. Email 'helpdesk@harambebo.com' to reset your password.");
+        die("Your account has been locked out, further password requests will not be checked. Email 'helpdesk@harambebo.com' to reset your password.");
     } else {
       if ($user->authenticateUser($_POST['password'])) {
         $_SESSION['user_id']=$user->user_id;

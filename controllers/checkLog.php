@@ -1,5 +1,5 @@
 <?php
-  //session_start();
+  session_start();
   if (isset($_SESSION['user_id'])){
     echo 'You are currently logged in';
     echo '<button style="display:inline-block;margin-left:50px;width:100px;margin-top:20px;" id="logout">Log out</button> </div>';

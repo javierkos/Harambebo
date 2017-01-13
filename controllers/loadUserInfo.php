@@ -9,7 +9,6 @@
     $own=true;
   }
 
-  $mysqli=$dbController->connect();
   $user = new User((int)$user_id);
   $user->dbPopulate();
   echo '<img src="'.htmlspecialchars($user->icon).'">';
@@ -24,6 +23,5 @@
     echo '<button style="display:inline-block;margin-left:50px;width:100px" id="editb">Edit</button></p> </div>';
   }else{
     echo '</p> </div>';
-  }
   }
   ?>

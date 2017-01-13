@@ -1,5 +1,6 @@
 <?php
-
+  session_start();
+  
   if(isset($_GET['user'])){
     $display_id = $_GET['user'];
   } else {
