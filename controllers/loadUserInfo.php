@@ -16,7 +16,7 @@
   if($stmt = $mysqli->prepare($query) or die($mysqli->error)){
       $stmt->bind_param('i',$user_id);
       $stmt->bind_result($username,$icon,$homepage);
-      echo $stmt->fetch();
+      
       while($stmt->fetch()){
         echo '<img src="'.htmlspecialchars($icon).'">';
         echo '<p class="side-content">';
