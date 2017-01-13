@@ -16,7 +16,7 @@
   <div class="imgcontainer">
     <img width="100px" height="100px" src="img/logo.png" alt="Avatar">
   </div>
-  <form id="login" style="text-align: center;border:none" action="controllers/registrationController.php" method="post" >
+  <form id="regist" style="text-align: center;border:none" action="controllers/registrationController.php" method="post" >
     <label ><b>User*:</b></label>
     <input id="user" type="text" placeholder="Insert Username" name="username" maxlength="20" required>
     <label><b>Password*:</b></label>

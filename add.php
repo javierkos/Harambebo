@@ -31,7 +31,7 @@
           <div style="margin-top: 20px;" class="section">
                 <div class="col span_2_of_3" id="snips">
                 <div class="blog-post" style="display:none" id="addform">
-                <form action="controllers/addSnip.php" method="post">
+                <form id="addsnip" action="controllers/addSnip.php" method="post">
                   <h2>Add Snippet</h2>
                   <input type="text" style="height:30px;font-size: 15px" name="title" placeholder="Title" required="" autofocus="" id="newtitle" />
                   <textarea placeholder="Message" name="text" cols="40" rows="5" style="display: block; margin-top: 10;" id="nsnip"></textarea>
