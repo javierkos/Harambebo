@@ -16,7 +16,7 @@
 		  <h1 class="logo">Harambebo</h1>
 	</header>
   <div class="imgcontainer">
-    <img src="http://static.boredpanda.com/blog/wp-content/uploads/2016/06/gorilla-shot-boy-zookeper-explains-harambe-amanda-odonoughue-cincinnati-zoo-1.jpg" alt="Avatar" class="avatar">
+    <img src="/img/logo.png" alt="Avatar" class="avatar">
   </div>
   <form id="login" style="text-align: center;border:none" action="controllers/loginController.php" method="post" >
     <label ><b>Username</b></label>
