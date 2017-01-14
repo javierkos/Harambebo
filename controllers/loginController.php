@@ -38,6 +38,7 @@ else
       die("Your account has been locked out, further password requests will not be checked. Email 'helpdesk@harambebo.com' to reset your password.");
     } else {
       if ($user->authenticateUser($_POST['password'])) {
+        session_regenerate_id(true);
         $_SESSION['user_id']=$user->user_id;
         $user->resetLogins();
         header("Location: ../home.php");
