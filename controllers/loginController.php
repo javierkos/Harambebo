@@ -41,7 +41,8 @@ else
         session_regenerate_id(true);
         $_SESSION['user_id']=$user->user_id;
         $user->resetLogins();
-        //setcookie("token", $_SESSION['user_id']*420, time() + (86400 * 30), "/"); //generate a cookie for handling requests
+        setcookie("token", $_SESSION['user_id']*420, time() + (86400 * 30), "/"); //generate a cookie for handling requests
+        $_COOKIE['token']=$_SESSION['user_id'];
         header("Location: ../home.php");
       } else {
         error_log('password not verified',0);
