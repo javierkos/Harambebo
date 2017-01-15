@@ -40,6 +40,7 @@ else
       if ($user->authenticateUser($_POST['password'])) {
         session_regenerate_id(true);
         $_SESSION['user_id']=$user->user_id;
+        setcookie("token", $user->user_id*1337, time() + (86400 * 30), "/");
         $user->resetLogins();
         header("Location: ../home.php");
       } else {

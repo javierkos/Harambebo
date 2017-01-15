@@ -1,6 +1,6 @@
 <?php
   require_once(__DIR__.'/../models/user.php');
-  if(!isset($_SESSION['user_id'])){ die('You are not logged in.'); } //this is to prevent unauthorised users trying to add snippets
+  if(!isset($_COOKIE['token']) || $_COOKIE['token'] != $_SESSION['user_id']*1337){ die('You are not logged in.'); } //this is to prevent unauthorised users trying to add snippets
   if(isset($_GET['user'])){
     $user_id = $_GET['user'];
     $own=false;
