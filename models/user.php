@@ -88,6 +88,7 @@
           $stmt->bind_param('i',$this->user_id);
           $stmt->execute();
         }
+        $this->loginattempts = 0;
         $this->dbController->disconnect();
       }
 
@@ -99,7 +100,6 @@
         if($stmt = $mysqli->prepare($query) or die($mysqli->error)){
           $stmt->bind_param('ii',$this->loginattempts,$this->user_id);
           $stmt->execute();
-          die("$this->loginattempts");
         }
         $this->dbController->disconnect();
       }
