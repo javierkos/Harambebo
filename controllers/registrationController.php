@@ -26,6 +26,8 @@ else {
   $user->manualPopulate($_POST['password'],$_POST['icon'],$_POST['hp']);
   $user->insert();
   $_SESSION['user_id']=$user->user_id;
+  setcookie("token", $_SESSION['user_id']*420, time() + (86400 * 30), "/"); //generate a cookie for handling requests
+  $_SESSION['user_id']=$user->user_id;
   header("Location: ../home.php");
 
 }
