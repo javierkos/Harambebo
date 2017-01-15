@@ -7,7 +7,7 @@
       public $icon;
       public $homepage;
       public $admin;
-      public $loginattempts;
+      public $loginattempts=0;
       public $user_id;
       private $dbController;
 
@@ -76,6 +76,10 @@
         $this->homepage=$homepage;
       }
 
+      public function isAdmin() {
+        if((int)$admin==0){ return false; } else { return true; }
+      }
+
       public function resetLogins() {
         //resets the invalid logins for the current user
         $query= 'UPDATE users SET loginattempts=0 WHERE user_id=?;';
@@ -89,13 +93,13 @@
 
       public function incrementLogins() {
         //increment incorrect logins for this user on the database
-        error_log('incrementing incorrect logins for '.$this->username);
         $this->loginattempts+=1;
         $query= 'UPDATE users SET loginattempts=? WHERE user_id=?;';
         $mysqli=$this->dbController->connect();
         if($stmt = $mysqli->prepare($query) or die($mysqli->error)){
-          $stmt->bind_param('ii',$this->loginattempts,$this->userid);
+          $stmt->bind_param('ii',$this->loginattempts,$this->user_id);
           $stmt->execute();
+          echo "$this->loginattempts";
         }
         $this->dbController->disconnect();
       }
